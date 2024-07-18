@@ -78,6 +78,49 @@ class Tree{
         }
         return current.value;
     }
+
+    find(value) {
+        return this.findNode(this.root, value);
+    }
+
+    findNode(root, value) {
+        if (root === null || root.value === value) {
+            return root;
+        }
+
+        if (value < root.value) {
+            return this.findNode(root.left, value);
+        } else {
+            return this.findNode(root.right, value);
+        }
+    }
+
+    levelOrder(callback) {
+        const result = [];
+        if (this.root === null) {
+            return result;
+        }
+
+        const queue = [this.root];
+
+        while (queue.length > 0) {
+            const node = queue.shift();
+            if (callback) {
+                callback(node);
+            } else {
+                result.push(node.value);
+            }
+
+            if (node.left !== null) {
+                queue.push(node.left);
+            }
+            if (node.right !== null) {
+                queue.push(node.right);
+            }
+        }
+
+        return result;
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
