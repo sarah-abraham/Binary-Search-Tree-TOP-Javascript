@@ -121,6 +121,82 @@ class Tree{
 
         return result;
     }
+    inOrder(callback) {
+        const result = [];
+        this.inOrderTraversal(this.root, callback, result);
+        return callback ? null : result;
+    }
+
+    inOrderTraversal(node, callback, result) {
+        if (node !== null) {
+            this.inOrderTraversal(node.left, callback, result);
+            if (callback) {
+                callback(node);
+            } else {
+                result.push(node.value);
+            }
+            this.inOrderTraversal(node.right, callback, result);
+        }
+    }
+
+    preOrder(callback) {
+        const result = [];
+        this.preOrderTraversal(this.root, callback, result);
+        return callback ? null : result;
+    }
+
+    preOrderTraversal(node, callback, result) {
+        if (node !== null) {
+            if (callback) {
+                callback(node);
+            } else {
+                result.push(node.value);
+            }
+            this.preOrderTraversal(node.left, callback, result);
+            this.preOrderTraversal(node.right, callback, result);
+        }
+    }
+
+    postOrder(callback) {
+        const result = [];
+        this.postOrderTraversal(this.root, callback, result);
+        return callback ? null : result;
+    }
+
+    postOrderTraversal(node, callback, result) {
+        if (node !== null) {
+            this.postOrderTraversal(node.left, callback, result);
+            this.postOrderTraversal(node.right, callback, result);
+            if (callback) {
+                callback(node);
+            } else {
+                result.push(node.value);
+            }
+        }
+    }
+
+    height(node) {
+        if (node === null) {
+            return -1;
+        }
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    depth(node, current = this.root, level = 0) {
+        if (current === null) {
+            return -1;
+        }
+        if (current === node) {
+            return level;
+        }
+        const leftDepth = this.depth(node, current.left, level + 1);
+        if (leftDepth !== -1) {
+            return leftDepth;
+        }
+        return this.depth(node, current.right, level + 1);
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
