@@ -291,4 +291,16 @@ prettyPrint(tree.root);
 console.log("Is the tree balanced");
 console.log(tree.isBalanced());
 
+console.log("Level order traversal after rebalancing:");
+console.log(tree.levelOrder());
+
+console.log("Pre-order traversal after rebalancing:");
+console.log(tree.preOrder());
+
+console.log("Post-order traversal after rebalancing:");
+console.log(tree.postOrder());
+
+console.log("In-order traversal after rebalancing:");
+console.log(tree.inOrder());
+
 
